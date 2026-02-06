@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Delta IA</title>
+<style>
+body {
+    background: #0b0b0b;
+    color: white;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+}
+
+h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+textarea {
+    width: 520px;
+    height: 120px;
+    border-radius: 12px;
+    border: none;
+    padding: 12px;
+    font-size: 16px;
+    outline: none;
+    margin-bottom: 20px;
+}
+
+button {
+    background: #6d28d9;
+    border: none;
+    padding: 12px 35px;
+    border-radius: 25px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 25px;
+}
+
+button:hover {
+    background: #7c3aed;
+}
+
+pre {
+    width: 520px;
+    background: #151515;
+    padding: 15px;
+    border-radius: 12px;
+    font-size: 14px;
+    white-space: pre-wrap;
+}
+</style>
+</head>
+<body>
+
+<h1>Delta IA</h1>
+
+<textarea id="idea" placeholder="La idea de tu script..."></textarea>
+
+<button onclick="generar()">Generar script</button>
+
+<pre id="resultado">// Esperando idea...</pre>
+
+<script>
+function generar() {
+    let idea = document.getElementById("idea").value.toLowerCase();
+    let salida = "";
+
+    if (idea.includes("velocidad")) {
+        salida = `
+-- Delta IA | Script de Velocidad
+local player = game.Players.LocalPlayer
+player.Character.Humanoid.WalkSpeed = 50
+`;
+
+    } else if (idea.includes("tp") || idea.includes("teleport")) {
+        salida = `
+-- Delta IA | Teleport
+local player = game.Players.LocalPlayer
+player.Character.HumanoidRootPart.CFrame =
+player.Character.HumanoidRootPart.CFrame * CFrame.new(0,0,-50)
+`;
+
+    } else if (idea.includes("kill") || idea.includes("matar")) {
+        salida = `
+-- Delta IA | Kill All
+for _,v in pairs(game.Players:GetPlayers()) do
+    if v.Character and v.Character:FindFirstChild("Humanoid") then
+        v.Character.Humanoid.Health = 0
+    end
+end
+`;
+
+    } else if (idea.includes("boton") || idea.includes("gui")) {
+        salida = `
+-- Delta IA | GUI Botón
+local ScreenGui = Instance.new("ScreenGui", game.Players.LocalPlayer.PlayerGui)
+local TextButton = Instance.new("TextButton", ScreenGui)
+
+TextButton.Size = UDim2.new(0,200,0,50)
+TextButton.Position = UDim2.new(0.5,-100,0.5,-25)
+TextButton.Text = "Botón IA"
+`;
+
+    } else {
+        salida = `
+-- Delta IA | Script Base
+print("Script generado por Delta IA")
+-- Idea: ${idea}
+`;
+    }
+
+    document.getElementById("resultado").textContent = salida;
+}
+</script>
+
+</body>
+</html>
